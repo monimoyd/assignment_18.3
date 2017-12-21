@@ -1,0 +1,10 @@
+Task1:
+
+sqlContext.sql("SELECT age_group_money_spent.age_group, SUM(age_group_money_spent.money_spent) AS total_money_spent FROM (SELECT CASE WHEN us.age < 20 THEN '< 20' WHEN age >= 20 AND age <= 35 THEN '20-35'  WHEN age >35 THEN '> 35' END AS age_group, trans.cost_per_unit as money_spent FROM Travel trav JOIN User us ON trav.user_id=us.user_id JOIN Transport trans ON trav.travel_mode = trans.travel_mode) age_group_money_spent GROUP BY age_group_money_spent.age_group ORDER BY total_money_spent DESC   LIMIT 1").show()
+
+
+Task2:
+
+sqlContext.sql("SELECT age_group_money_spent.year_of_travel, age_group_money_spent.age_group, SUM(age_group_money_spent.money_spent) AS total_money_spent FROM (SELECT trav.year_of_travel, CASE WHEN us.age < 20 THEN '< 20' WHEN age >= 20 AND age <= 35 THEN '20-35'  WHEN age >35 THEN '> 35' END AS age_group, trans.cost_per_unit as money_spent FROM Travel trav JOIN User us ON trav.user_id=us.user_id JOIN Transport trans ON trav.travel_mode = trans.travel_mode) age_group_money_spent GROUP BY age_group_money_spent.year_of_travel, age_group_money_spent.age_group ORDER BY age_group_money_spent.year_of_travel, age_group_money_spent.age_group ").show()
+
+
